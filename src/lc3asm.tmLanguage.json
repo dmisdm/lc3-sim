@@ -1,0 +1,75 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "LC3 Assembly",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.lc3asm",
+					"match": "\\b(BR|BRn|BRz|BRp|BRnz|BRnp|BRzp|BRnzp|JMP|RET|JSR|JSRR|RTI|br|brn|brz|brp|brnz|brnp|brzp|brnzp|jmp|ret|jsr|jsrr|rti)\\b"
+				},
+				{
+					"name": "support.other.lc3asm",
+					"match": "\\b(TRAP|GETC|OUT|PUTS|IN|HALT|trap|getc|out|puts|in|halt)\\b"
+				},
+				{
+					"name": "entity.name.function.logimaths.lc3asm",
+					"match": "\\b(NOT|AND|ADD|not|and|add)\\b"
+				},
+				{
+					"name": "storage.operation.datamv.lc3asm",
+					"match": "\\b(LD|LDR|LDI|ST|STR|STI|LEA|ld|ldr|ldi|st|str|sti|lea)\\b"
+				},
+				{
+					"name": "keyword.pseudoop.lc3asm",
+					"match": "\\b(ORIG|FILL|BLKW|STRINGZ|END|orig|fill|blkw|stringz|end)\\b"
+                },
+                {
+                    "name": "keyword.preprocessor.lc3asm",
+                    "match": "\\b(ALIAS|MACRO|IMPORT|EXPORT|alias|macro|import|export)\\b"
+                },
+				{
+					"name": "variable.register.lc3asm",
+					"match": "[rR][0-7]"
+				},
+				{
+					"name": "comment.line.lc3asm",
+					"begin": ";",
+					"end": "\n"
+				},
+				{
+					"name": "constant.numeric.hex",
+					"match": "[x][A-Fa-f0-9]{1,4}"
+				},
+				{
+					"name": "constant.numeric.dec",
+					"match": "[0-9]+"
+				},
+				{
+					"name": "constant.character",
+					"match": "[A-Za-z][A-Za-z0-9_]+"
+				}
+			]
+		},
+		"strings": {
+			"name": "string.quoted.double.lc3asm",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.lc3asm",
+					"match": "\\\\."
+				}
+			]
+		}
+	},
+	"scopeName": "source.asm"
+}

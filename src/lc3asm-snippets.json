@@ -1,0 +1,202 @@
+{
+    "Add two registers": {
+        "prefix":[
+            "ADD",
+            "add"
+        ],
+        "body": "ADD\t${1:dest},\t${2:src1},\t${0:src2}",
+        "description": "dest <- src1 + src2"
+    },
+    "Add a register and an immediate value": {
+        "prefix":[
+            "ADDimm",
+            "addimm"
+        ],
+        "body": "ADD\t${1:dest},\t${2:src},\t${0:imm5}",
+        "description": "dest <- src + imm5 (imm5 has range [-16,15])"
+    },
+    "And two registers": {
+        "prefix":[
+            "AND",
+            "and"
+        ],
+        "body": "AND\t${1:dest},\t${2:src1},\t${0:src2}",
+        "description": "dest <- src1 & src2"
+    },
+    "And a register and an immediate value": {
+        "prefix":[
+            "AND",
+            "and"
+        ],
+        "body": "AND\t${1:dest},\t${2:src},\t${0:imm5}",
+        "description": "dest <- src & imm5 (imm5 has range [-16,15])"
+    },
+    "Not a register": {
+        "prefix": [
+            "NOT",
+            "not"
+        ],
+        "body": "NOT\t${1:dest},\t${0:src}",
+        "description": "dest <- (src)'"
+    },
+    "Load": {
+        "prefix": [
+            "LD",
+            "ld"
+        ],
+        "body": "LD\t${1:dest},\t${0:PCoffset9}",
+        "description": "dest <- Mem[PC + PCoffset9] (PCoffset9 has range [-256,255])"
+    },
+    "Load relative": {
+        "prefix": [
+            "LDR",
+            "ldr"
+        ],
+        "body": "LDR\t${1:dest},\t${2:base},\t${0:offset6}",
+        "description": "dest <- Mem[base + offset6] (offset6 has range [-64,63])"
+    },
+    "Load immediate": {
+        "prefix": [
+            "LDI",
+            "ldi"
+        ],
+        "body": "LD\t${1:dest},\t${0:PCoffset9}",
+        "description": "dest <- Mem[Mem[PC + PCoffset9]] (PCoffset9 has range [-256,255])"
+    },
+    "Store": {
+        "prefix": [
+            "ST",
+            "st"
+        ],
+        "body": "ST\t${1:src},\t${0:PCoffset9}",
+        "description": "Mem[PC + PCoffset9] <- src (PCoffset9 has range [-256,255])"
+    },
+    "Store relative": {
+        "prefix": [
+            "STR",
+            "str"
+        ],
+        "body": "STR\t${1:src},\t${2:base},\t${0:offset6}",
+        "description": "Mem[base + offset6] <- src (offset6 has range [-64,63])"
+    },
+    "Store immediate": {
+        "prefix": [
+            "STI",
+            "sti"
+        ],
+        "body": "STI\t${1:src},\t${0:PCoffset9}",
+        "description": "Mem[Mem[PC + PCoffset9]] <- src (PCoffset9 has range [-256,255])"
+    },
+    "Load effective address": {
+        "prefix": [
+            "LEA",
+            "lea"
+        ],
+        "body": "LEA\t${1:dest},\t${0:PCoffset9}",
+        "description": "dest <- PC + PCoffset9 (PCoffset9 has range [-256,255])"
+    },
+    "Break": {
+        "prefix": [
+            "BR",
+            "br"
+        ],
+        "body": "BR${1:nzp}\t${0:PCoffset9}",
+        "description": "if flags are set: PC <- PC + PCoffset9 (PCoffset9 has range [-256,255])"
+    },
+    "Jump": {
+        "prefix": [
+            "JMP",
+            "jmp"
+        ],
+        "body": "JMP\t${0:src}",
+        "description": "PC <- src"
+    },
+    "Return": {
+        "prefix": [
+            "RET",
+            "ret"
+        ],
+        "body": "RET$0",
+        "description": "PC <- R7"
+    },
+    "Return from interrupt": {
+        "prefix": [
+            "RTI",
+            "rti"
+        ],
+        "body": "RTI$0",
+        "description": ""
+    },
+    "Jump to subroutine": {
+        "prefix": [
+            "JSR",
+            "jsr"
+        ],
+        "body": "JSR\t${0:PCoffset11}",
+        "description": "R7 <- PC; PC <- PC + PCoffset11 (PCoffset11 has range [-1024,1023])"
+    },
+    "Jump to sobroutine register":{
+        "prefix": [
+            "JSRR",
+            "jsrr"
+        ],
+        "body": "JSRR\t${0:src}",
+        "description": "R7 <- PC; PC <- src"
+    },
+    "System call": {
+        "prefix": [
+            "TRAP",
+            "trap"
+        ],
+        "body": "TRAP\tx${0:trapvect}",
+        "description": "R7 <- PC; PC <- ZEXT[trapvect]"
+    },
+    "Origin and End": {
+        "prefix": [
+            ".ORIG",
+            ".orig"
+        ],
+        "body": ".ORIG\tx${1:3000}\n\t$0\n.END",
+        "description": "Tells the assembler where the program begins and ends."
+    },
+    "Rename a register": {
+        "prefix": [
+            ".ALIAS",
+            ".alias"
+        ],
+        "body": ".ALIAS\t${1:R0},\t${0,count}",
+        "description": "Renames the register idicated by the first argument to the second argument."
+    },
+    "Define a macro": {
+        "prefix": [
+            ".MACRO",
+            ".macro"
+        ],
+        "body": ".MACRO\t${1:INC}\t${0:\"ADD R0, R0, 1\"}",
+        "description": "Replaces every instance of the first argument with the second argument."
+    },
+    "Fill": {
+        "prefix": [
+            ".FILL",
+            ".fill"
+        ],
+        "body": ".FILL\t${0:fill}",
+        "description": "Fills the memory location with the value specifiec."
+    },
+    "String": {
+        "prefix": [
+            ".STRINGZ",
+            ".stringz"
+        ],
+        "body": ".STRINGZ\t\"${0:string}\"",
+        "description": "Creates a null-terminated string starting at the location of the command. Note that this will take up n+1 memory locations given a string of size n."
+    },
+    "Block Word": {
+        "prefix": [
+            ".BLKW",
+            ".blkw"
+        ],
+        "body": ".BLKW\t${0:1}",
+        "description": "Sets aside the specified number of memory locations for use later. Often used with labels."
+    }
+}
