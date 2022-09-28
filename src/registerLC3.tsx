@@ -17,12 +17,23 @@ export function registerLC3(monaco: Monaco) {
 
   monaco.languages.register({ id: "lc3" });
   monaco.languages.registerCompletionItemProvider("lc3", {
-    provideCompletionItems: () => {
-      return Object.entries(snippets).map(([label, config]) => ({
-        label,
-        insertText: [],
-        kind: monaco.languages.CompletionItemKind.Snippet,
-      }));
+    provideCompletionItems(model, position, context, token) {
+      const firstEditor = monaco.editor.getEditors()[0];
+      const snippetController =
+        firstEditor.getContribution("snippetController2");
+      return {
+        suggestions: Object.entries(snippets).map(([label, config]) => ({
+          label,
+          insertText: config.body,
+          kind: monaco.languages.CompletionItemKind.Snippet,
+          range: {
+            startColumn: position.column,
+            endColumn: position.column,
+            startLineNumber: position.lineNumber,
+            endLineNumber: position.lineNumber,
+          },
+        })),
+      };
     },
   });
   const grammars = new Map();

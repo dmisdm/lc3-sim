@@ -13,6 +13,7 @@
     "@monaco-editor/react": "^4.4.6",
     "@mui/material": "^5.10.6",
     "lc3asm": "^0.0.1",
+    "monaco-editor-core": "^0.34.0",
     "monaco-editor-textmate": "^3.0.0",
     "monaco-textmate": "^3.0.1",
     "onigasm": "^2.2.5",
